@@ -143,7 +143,7 @@ void quickSort(vector<int> & a, int lo, int hi) {
     quickSort(a,j+1,hi);
 }
 
-//------------------------heep  sort--------------------------------
+//------------------------heap  sort--------------------------------
 
 void swim(vector<int> & a, int k) {
     while (k > 1) {
@@ -193,13 +193,13 @@ void popnode(vector<int> & a){
         // cout << "pop after    :";
         // show(a);
     }else{
-        cout << "heep is null";
+        cout << "heap is null";
         return;
     }
     sink(a,1);
 }
 
-void creatheep(vector<int> & a){
+void creatheap(vector<int> & a){
     int size = a.size()-1;
     for(int i = size/2; i >= 1; i--) {
         sink(a,i);
@@ -231,7 +231,7 @@ int main() {
     // mergesort_low(a);
     // quickSort(a,0,a.size()-1);
 
-    // creatheep(a);
+    // creatheap(a);
     // for(int i = 0; i < 99; i++){
     //     cout << a[1] << " ";
     //     popnode(a);
