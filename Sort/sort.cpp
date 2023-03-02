@@ -199,9 +199,28 @@ void popnode(vector<int> & a){
     sink(a,1);
 }
 
+void creatheep(vector<int> & a){
+    int size = a.size()-1;
+    for(int i = size/2; i >= 1; i--) {
+        sink(a,i);
+    }
+    
+}
+
+void find_10_min(vector<int> & a, int num) {
+    if(a.size() < 11) {
+        addnode(a,num);
+    } else {
+        if(num < a[1]) {
+            a[1] = num;
+            sink(a,1);
+        }
+    }
+}
+
 int main() {
     vector<int> a;
-    // for(int i = 0; i < 10; i++){
+    // for(int i = 0; i < 100; i++){
     //     a.push_back(rand()%100);
     // }
     // show(a);
@@ -211,12 +230,16 @@ int main() {
     // mergesort_top(a,0,a.size()-1);
     // mergesort_low(a);
     // quickSort(a,0,a.size()-1);
-    for(int i = 0; i < 100; i++){
-        addnode(a,rand()%100);
+
+    // creatheep(a);
+    // for(int i = 0; i < 99; i++){
+    //     cout << a[1] << " ";
+    //     popnode(a);
+    // }
+
+    for(int i = 1000; i >= 0; i--){
+        find_10_min(a,i);
     }
-    for(int i = 0; i < 100; i++){
-        cout << a[1] << " ";
-        popnode(a);
-    }
+    show(a);
     return 0;
 }

@@ -21,4 +21,5 @@ void swim(vector<int> & a, int k);
 void sink(vector<int> & a, int k);
 void addnode(vector<int> & a, int value);
 void popnode(vector<int> & a);
-
+void creatheep(vector<int> & a);
+void find_10_min(vector<int> & a, int num);
