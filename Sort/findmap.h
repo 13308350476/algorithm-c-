@@ -1,5 +1,7 @@
 #include"sort.h"
 
+#define RED    true
+#define BLACK  false
 using namespace std;
 
 class NODE {
@@ -19,11 +21,13 @@ void Linked_list_func();
 
 class BNODE {
     public:
-        BNODE(char K, int V, int size_t):key(K),value(V),left(NULL),right(NULL),N(size_t){};
+        BNODE(char K, int V, int size_t):key(K),value(V),left(NULL),
+        right(NULL),N(size_t),color(BLACK){};
         char key;
         int value;
         BNODE * left,* right;
         int N;
+        bool color;
 };
 BNODE *root = NULL;
 int size(BNODE *node);
@@ -46,3 +50,13 @@ BNODE * Bdelet(BNODE *node, char k);
 void print(BNODE *node); //中序遍历
 vector<char> find_lo_hi(char lo,char hi);
 void find_rang(BNODE *node,vector<char> &list,char lo,char hi);
+
+//--------------------------RED BLACK BST --------------------------------
+BNODE * rotateleft(BNODE *node);
+BNODE * rotateright(BNODE *node);
+bool isred(BNODE *node);
+void filpcolors(BNODE *node);
+void RBput_head(char k,int value);
+BNODE *RBpu(BNODE *node,char k,int value);
+void RBput_func();
+//删除节点有点难，需要之后再来探索

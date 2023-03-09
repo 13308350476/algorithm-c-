@@ -260,9 +260,87 @@ void find_rang(BNODE *node,vector<char> &list,char lo,char hi) {
     }
 }
 
+//--------------------------RED BLACK BST --------------------------------
+bool isred(BNODE *node) {
+    if(NULL == node) {
+        return false;
+    }
+    return node->color;
+}
+void filpcolors(BNODE *node) {
+    node->color = RED;
+    node->left->color = BLACK;
+    node->right->color = BLACK;
+}
+
+BNODE * rotateleft(BNODE *node) {
+    BNODE * right = node->right;
+    node->right = right->left;
+    right->left = node;
+    right->N = node->N;
+    right->color = node->color;
+    node->color = RED;
+    node->N = size(node->right) + size(node->left) + 1;
+    return right;
+}
+
+BNODE * rotateright(BNODE *node) {
+    BNODE * left = node->left;
+    node->left = left->right;
+    left->right = node;
+    left->N = node->N;
+    node->N = size(node->right) + size(node->left) + 1;
+    left->color = node->color;
+    node->color = RED;
+    return left;
+}
+
+void RBput_head(char k,int v) {
+    root = RBpu(root,k,v);
+    root->color = BLACK;
+}
+BNODE *RBpu(BNODE *node,char k,int v) {
+    if(NULL == node) {
+        BNODE *newnode = new BNODE(k,v,1);
+        newnode->color = RED;
+        return newnode;
+    }
+    if(k < node->key) {
+        node->left = RBpu(node->left,k,v);
+    }else if(k > node->key) {
+        node->right = RBpu(node->right,k,v);
+    }else {
+        node->value = v;
+    }
+    if(isred(node->left) && isred(node->right)) {
+        filpcolors(node);
+    }
+    if(isred(node->left) && isred(node->left->left)) {
+        node = rotateright(node);
+    }
+    if(isred(node->right) && !isred(node->left)) {
+        node = rotateleft(node);
+    }
+    node->N = size(node->left) + size(node->right) + 1;
+    return node;
+}
+
+void RBput_func() {
+    RBput_head('A',1);
+    RBput_head('C',1);
+    RBput_head('E',1);
+    RBput_head('H',1);
+    RBput_head('L',1);
+    RBput_head('M',1);
+    RBput_head('P',1);
+    RBput_head('R',1);
+    RBput_head('S',1);
+    RBput_head('X',1);
+}
+
 int main() {
     // Linked_list_func();
-    BST_input_func();
+    // BST_input_func();
     // cout << b_get_head('H')->value; //要判断是否为空
     // cout << rank_head('S') << endl;
     // cout << Bselect_head(6)->key << endl; //要判断是否为空
@@ -270,6 +348,10 @@ int main() {
     // deletmin_head();
     // Bdelet_head('E');
     // print(root);
-    find_lo_hi('A','S');
+    // find_lo_hi('A','S');
+    RBput_func();
+    // BNODE *TEST;
+    // TEST = root;
+    // cout << "KEY:" << TEST->key <<" COLOR:" << TEST->color;
     return 0;
 }
