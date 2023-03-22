@@ -7,6 +7,9 @@ Graph::Graph(int v){
         vector<int> temp;
         this->table.push_back(temp);
         egdedto.push_back(-1);
+        id.push_back(i);
+        bool temp_bool = false;
+        mark.push_back(temp_bool);
     }
 }
 
@@ -59,11 +62,6 @@ int numberOfSelfLoops(Graph G) {
 }
 
 void DeepSearch(Graph G,int s) {
-    int size = G.V();
-    for(int i = 0; i < size; i++) {
-        bool temp = false;
-        mark.push_back(temp);
-    }
     dfs(G,s);
 }
 
@@ -76,18 +74,41 @@ void dfs(Graph G,int v) {
     for(int i=0; i<size; i++) {
         if(!mark[G.table[v][i]]) {
             egdedto[G.table[v][i]] = v;
+            id[G.table[v][i]] = count;
             dfs(G,G.table[v][i]);
         }
     }
 }
 
 
+void wideSearch(Graph G,int s) {
+    bfs(G,s);
+}
+void bfs(Graph G,int v) {
+    queue<int> myqueue;
+    myqueue.push(v);
+    mark[v] = true;
+    while(!myqueue.empty()) {
+        int nownode = myqueue.front();
+        int size = G.table[nownode].size();
+        for(int i = 0; i < size; i++) {
+            if(!mark[G.table[nownode][i]]) {
+                mark[G.table[nownode][i]] = true;
+                myqueue.push(G.table[nownode][i]);
+                egdedto[G.table[nownode][i]] = nownode;
+            }
+        }
+
+        myqueue.pop();
+    }
+}
+
 void makeGrap(Graph &G) {
     G.addEdge(0,5);
     G.addEdge(2,4);
     G.addEdge(2,3);
-    G.addEdge(1,2);
-    G.addEdge(0,1);
+    // G.addEdge(1,2);
+    // G.addEdge(0,1);
     G.addEdge(3,4);
     G.addEdge(3,5);
     G.addEdge(0,2);
@@ -113,12 +134,36 @@ vector<int> pathTo(int s,int v) {
     return path;
 }
 
+void cc(Graph G) {
+    int size = G.V();
+    for(int i = 0; i < size; i++) {
+        if(!mark[i]) {
+            dfs(G,i);
+            count ++;
+        }
+    }
+}
+
+bool connected(int s, int v) {
+    if(id[s] == id[v]) {
+        return true;
+    }
+    return false;
+}
+
+int nodeid(int v) {
+    return id[v];
+}
+
 int main(){
     Graph G(6);
     vector<int> path;
     makeGrap(G);
-    DeepSearch(G,0);
+    // DeepSearch(G,0);
+    // wideSearch(G,0);
+    cc(G);
     cout << endl;
-    path = pathTo(0,5);
+    // cout << connected(2,4);
+    // path = pathTo(0,5);
     return 0;
 }
