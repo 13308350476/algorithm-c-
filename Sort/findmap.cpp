@@ -340,16 +340,16 @@ void RBput_func() {
 
 int main() {
     // Linked_list_func();
-    // BST_input_func();
+    BST_input_func();
     // cout << b_get_head('H')->value; //要判断是否为空
     // cout << rank_head('S') << endl;
     // cout << Bselect_head(6)->key << endl; //要判断是否为空
     // cout << Bmin_head()->key;
     // deletmin_head();
     // Bdelet_head('E');
-    // print(root);
+    print(root);
     // find_lo_hi('A','S');
-    RBput_func();
+    // RBput_func();
     // BNODE *TEST;
     // TEST = root;
     // cout << "KEY:" << TEST->key <<" COLOR:" << TEST->color;
